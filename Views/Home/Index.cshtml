@@ -1,0 +1,43 @@
+﻿@model  WebApplication3.Models.ModelForView
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<script type="text/javascript">
+    const { Button } = require("bootstrap");
+
+    function toggle_visibility_airport(id, ids) {
+        if (document.getElementById(id)) {
+            var obj = document.getElementById(id);
+            var obj2 = document.getElementById(ids);
+            if (obj.style.display != "block") {
+                if (obj2.style.display = "block") {
+                    obj2.style.display = "none";
+                    obj.style.display = "block";
+                }
+
+            }
+            else {
+                obj.style.display = "none"
+                obj2.style.display = "block"
+            }
+        }
+    }
+</script>
+<body>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <div class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" id="nameToFind" name="nameToFind" placeholder="Search" aria-label="Search">
+            <input class="btn btn-outline-success my-2 my-sm-0" type="submit" id="submitId" value="Search" />
+        </div>
+
+    }
+    <div id="airport_Arrival">
+        @{Html.RenderPartial("_AirportsArrival"); }
+    </div>
+    <div id="airport_Departure" style="display:none">
+        @{Html.RenderPartial("_AirportsDeparture"); }
+    </div>
+    <button class="btn btn-default" onclick="toggle_visibility_airport('airport_Arrival', 'airport_Departure');" type="submit">Прилёт|Вылет</button>
+</body>

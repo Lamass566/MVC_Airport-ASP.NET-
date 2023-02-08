@@ -1,0 +1,83 @@
+﻿@model IEnumerable<WebApplication3.Models.Passengers>
+@{
+    ViewBag.Title = "Index";
+}
+<link rel="stylesheet" href="~/FontA/MyCss/IndexCss.css">
+<p>
+    <a href="@Url.Action("Create","Passengers")" class="btn btn-default"><i class="fas fa-plus"></i>@*@Html.ActionLink("Create New", "Create")*@ &ensp;Create new</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            FlightNumber
+        </th>
+        <th>
+            Date_bir
+        </th>
+        <th>
+            First_Name
+        </th>
+        <th>
+            Second_Name
+        </th>
+        <th>
+            Nationality
+        </th>
+        <th>
+            Sex
+        </th>
+        <th>
+            Ticket_Сlass
+        </th>
+        <th></th>
+    </tr>
+
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="8" class="text-center">Нет ни одного пассажира</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AirportsDeparture.FlightNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_bir)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.First_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Second_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nationality)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sex)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ticket_Сlass)
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Edit Info
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                            <a href="@Url.Action("Edit", "Passengers", new { id = item.Id_pass })">Edit</a> |
+                            <a href="@Url.Action("Delete", "Passengers", new { id = item.Id_pass })">Delete</a>
+                        </div>
+                    </div>
+                    
+                </td>
+            </tr>
+        }
+    }
+
+</table>

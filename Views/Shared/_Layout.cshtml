@@ -1,0 +1,108 @@
+﻿<style>
+    .MyFont {
+        font-size: 30px;
+        vertical-align: middle;
+        position: relative;
+        top: 50%;
+        transform: translate(0, -50%);
+        color: white !important;
+        text-decoration: none;
+        outline: none;
+    }
+    .MyFont2 {
+        color: black !important;
+        text-decoration: none;
+        outline: none;
+    }
+    .MyPosition {
+        position: absolute;
+        top: 6px;
+        left: 1110px;
+    }
+    #layer1 {
+        z-index: 1;
+    }
+
+/*    #layer2 {
+        z-index: 2;
+    }*/
+</style>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/FontA/css/all.min.css" rel="stylesheet">
+    <link href="~/FontA/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/FontA/css/brands.min.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="height:50px" id="layer1">
+        <div class="container" text-decoration="none">
+            <div class="navbar-header" text-decoration="none">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" text-decoration="none">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <nav class="navbar navbar-light bg-light" text-decoration="none">
+                    <a class="MyFont" text-decoration="none">
+                        <img src="~/Picture/7ceaff6e-3c16-487d-bee3-a6a93319920b.jpg" width="40" height="40" class="d-inline-block align-top">
+                        @Html.ActionLink("Airport", "Index", "Home", new { area = "" }, new { @class = "MyFont" })
+                    </a>
+                </nav>
+            </div>
+            @if (HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+        <div class="dropdown; MyPosition" id="layer2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-size:17px; float:right">
+                Hello @HttpContext.Current.User.Identity.Name
+            </button>
+            @if (HttpContext.Current.User.IsInRole("User"))
+            {
+                
+            }
+            else if(HttpContext.Current.User.IsInRole("Admin"))
+            {
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="font-size:17px">
+            <a class="dropdown-item" style="font-size:17px">@Html.ActionLink("Arrival", "Index", "AirportArrival", null, new { @class = "MyFont2" })</a> |
+            <a class="dropdown-item" style="font-size:17px">@Html.ActionLink("Departure", "Index", "AirportDeparture", null, new { @class = "MyFont2" })</a>
+            <a class="dropdown-item" style="font-size:17px">@Html.ActionLink("Passenger", "Index", "Passengers", null, new { @class = "MyFont2" })</a>
+            <a class="dropdown-item" style="font-size:17px">@Html.ActionLink("AccountPanel", "Index", "AdminPanel", null, new { @class = "MyFont2" })</a>
+            <a class="dropdown-item" style="font-size:17px">@Html.ActionLink("RolePanel", "Index", "RoleAdmin", null, new { @class = "MyFont2" })</a>
+        </div>
+            }
+        </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav" style="float:right; font-size: 17px">
+                        <li>@Html.ActionLink("LogOut", "Logout", "Account")</li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav" style="float:right; font-size: 17px">
+                        <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                        <li>@Html.ActionLink("Registration", "Create", "AdminPanel")</li>
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <footer>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

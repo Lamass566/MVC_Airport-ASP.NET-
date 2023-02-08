@@ -1,0 +1,124 @@
+﻿@model  WebApplication3.Models.ModelForView
+@using WebApplication3.Controllers
+@{
+    ViewBag.Title = "View";
+}
+<style>
+body {
+    background: url(/Picture/123.jpg);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 18px;
+    border-radius: 10px;
+    border-spacing: 0;
+    text-align: center;
+}
+
+th {
+    background: #673774;
+    color: #FFCF18;
+    text-shadow: 0 1px 1px #2D2020;
+    padding: 10px 20px;
+}
+
+th, td {
+    border-style: solid;
+    border-width: 0 0px 1px 0;
+    border-color: white;
+}
+
+    th:first-child, td:first-child {
+        text-align: left;
+    }
+
+    th:first-child {
+        border-top-left-radius: 10px;
+    }
+
+    th:last-child {
+        border-top-right-radius: 10px;
+        border-right: none;
+    }
+
+tr:last-child > td {
+    border-bottom: 0;
+}
+
+td {
+    padding: 10px 20px;
+    background: #673774;
+    color: white;
+}
+
+tr:last-child td:first-child {
+    border-radius: 0 0 0 10px;
+}
+
+tr:last-child td:last-child {
+    border-radius: 0 0 10px 0;
+}
+
+tr td:last-child {
+    border-right: none;
+}
+</style>
+<table align="center">
+    <tr>
+        <th>
+            Номер Рейса
+        </th>
+        <th class="departure">
+            Время
+        </th>
+        <th class="departure">
+            Порт Вылета &nbsp
+        </th>
+        <th>
+            Авиалиния
+        </th>
+        <th>
+            Гейт
+        </th>
+        <th>
+            Статус
+        </th>
+    </tr>
+
+    @foreach (var item in Model.AirportsDeparture.Where(i => i.City_Departure.Contains(ViewBag.SearchKey)))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlightNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Departure.TimeOfDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City_Departure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Airline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flight_status)
+            </td>
+
+        </tr>
+    }
+
+</table>

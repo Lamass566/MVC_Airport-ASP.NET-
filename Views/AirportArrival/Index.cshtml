@@ -1,0 +1,147 @@
+﻿@model IEnumerable<WebApplication3.Models.AirportsArrival>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    body {
+        background: url(/Picture/360.jpg);
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100vh;
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    table {
+        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+        font-size: 14px;
+        border-radius: 10px;
+        border-spacing: 0;
+        text-align: center;
+    }
+
+    th {
+        background: #9a00db;
+        color: #FFCF18;
+        text-shadow: 0 1px 1px #2D2020;
+        padding: 10px 20px;
+    }
+
+    th, td {
+        border-style: solid;
+        border-width: 0 0px 1px 0;
+        border-color: white;
+    }
+
+        th:first-child, td:first-child {
+            text-align: left;
+        }
+
+        th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+        th:last-child {
+            border-top-right-radius: 10px;
+            border-right: none;
+        }
+
+    tr:last-child > td {
+        border-bottom: 0;
+    }
+
+    td {
+        padding: 10px 20px;
+        background: #673774;
+        color: white;
+    }
+
+    tr:last-child td:first-child {
+        border-radius: 0 0 0 10px;
+    }
+
+    tr:last-child td:last-child {
+        border-radius: 0 0 10px 0;
+    }
+
+    tr td:last-child {
+        border-right: none;
+    }
+</style>
+<p>
+    <a href="@Url.Action("Create","AirportArrival")" class="btn btn-default"><i class="fas fa-plus"></i>@*@Html.ActionLink("Create New", "Create")*@ &ensp;Create new</a>
+</p>
+<table>
+    <tr>
+        <th>
+            FlightNumber
+        </th>
+        <th>
+            Date_Arrival
+        </th>
+        <th>
+            City_Arrival
+        </th>
+        <th>
+            Airline
+        </th>
+        <th>
+            Gate
+        </th>
+        <th>
+            Flight_status
+        </th>
+        <th></th>
+    </tr>
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="7" class="text-center">Нет ни одного рейса</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FlightNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date_Arrival)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City_Arrival)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Airline)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Flight_status)
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Edit Info
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.FlightNumber })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.FlightNumber })
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        }
+    }
+
+    </table>
